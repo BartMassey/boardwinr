@@ -19,8 +19,26 @@ for _ in range(n):
 counts0 = [int(c) for c in input().split()]
 
 def search(board, counts):
-    answers = set()
+    def showBoard(boardish):
+        for r in boardish:
+            print("".join(r))
 
+    def dropTiles(boardish):
+        for c in range(n):
+            dest = n - 1
+            while dest >= 0:
+                if boardish[dest][c] != '.':
+                    dest -= 1
+                    continue
+                source = dest
+                while source >= 0 and boardish[source][c] == '.':
+                    source -= 1
+                if source < 0:
+                    break
+                boardish[dest][c] = boardish[source][c]
+                boardish[source][c] = '.'
+                dest -= 1
+                
     def trace(r, c, prefix):
         if board[r][c] == '.':
             return None
@@ -28,9 +46,18 @@ def search(board, counts):
         p = prefix + saved
         if len(p) > counts[0]:
             return None
-        if len(p) == counts[0] and p in words and p not in answers:
-            print("found", p)
-            answers.add(p)
+        if len(p) == counts[0] and p in words:
+            newBoard = [r.copy() for r in board]
+            newBoard[r][c] = '.'
+            print()
+            showBoard(newBoard)
+            dropTiles(newBoard)
+            print("->")
+            showBoard(newBoard)
+            print()
+            result = search(newBoard, counts[1:])
+            if result != None:
+                return [p] + result
         if p not in prefixes:
             return None
         board[r][c] = '.'
@@ -41,8 +68,8 @@ def search(board, counts):
                 if r + dr not in range(n) or c + dc not in range(n):
                     continue
                 result = trace(r + dr, c + dc, p)
-#               if result != None:
-#                   return result
+                if result != None:
+                    return result
         board[r][c] = saved
         return None
 
@@ -55,4 +82,4 @@ def search(board, counts):
                 return answer
     return None
 
-search(board0, counts0)
+print(search(board0, counts0))
