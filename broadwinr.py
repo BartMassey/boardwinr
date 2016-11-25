@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 # Copyright (c) 2016 Bart Massey
+# This work is made available under the GPL version 3. Please
+# see the file `COPYING` in this distribution for license
+# information.
+
+# BroadWinr: Solver for WordBrain(TM) puzzles.
 
 import sys
 
