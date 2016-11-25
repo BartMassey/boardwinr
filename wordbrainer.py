@@ -18,7 +18,7 @@ for _ in range(n):
     board0.append([c for c in row.lower()])
 counts0 = [int(c) for c in input().split()]
 
-def search(board, counts):
+def search(board, counts, partial):
     def showBoard(boardish):
         for r in boardish:
             print("".join(r))
@@ -41,25 +41,18 @@ def search(board, counts):
                 
     def trace(r, c, prefix):
         if board[r][c] == '.':
-            return None
+            return
         saved = board[r][c]
         p = prefix + saved
         if len(p) > counts[0]:
-            return None
+            return
         if len(p) == counts[0] and p in words:
             newBoard = [r.copy() for r in board]
             newBoard[r][c] = '.'
-            print()
-            showBoard(newBoard)
             dropTiles(newBoard)
-            print("->")
-            showBoard(newBoard)
-            print()
-            result = search(newBoard, counts[1:])
-            if result != None:
-                return [p] + result
+            result = search(newBoard, counts[1:], partial + [p])
         if p not in prefixes:
-            return None
+            return
         board[r][c] = '.'
         for dr in range(-1, 2):
             for dc in range(-1, 2):
@@ -67,19 +60,14 @@ def search(board, counts):
                     continue
                 if r + dr not in range(n) or c + dc not in range(n):
                     continue
-                result = trace(r + dr, c + dc, p)
-                if result != None:
-                    return result
+                trace(r + dr, c + dc, p)
         board[r][c] = saved
-        return None
 
     if counts == []:
-        return []
+        print(" ".join(partial))
+        return
     for r in range(n):
         for c in range(n):
             answer = trace(r, c, "")
-            if answer != None:
-                return answer
-    return None
 
-print(search(board0, counts0))
+search(board0, counts0, [])
