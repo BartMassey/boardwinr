@@ -21,11 +21,9 @@ solution, in order. For example:
 
 The solver also expects to find a dictionary in the file
 `words.txt` in its current directory, with a simple file
-format of one word per line. Several dictionaries are made
-available in compressed format at the BroadWinr
-[GitHub page](http://github.com/BartMassey/BroadWinr).
-(They are large enough to avoid including them in the Git
-repository proper.)
+format of one word per line. Dictionaries are available in
+compressed format on GitHub in the
+[wordlists](http://github.com/BartMassey/wordlists) project.
 
 Feeding the example above to BroadWinr with the EOWL
 dictionary
