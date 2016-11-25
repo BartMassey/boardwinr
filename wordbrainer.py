@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 # Copyright (c) 2016 Bart Massey
 
+import sys
+
 words = set()
 prefixes = set()
-f = open("sowpods.txt", "r")
+f = open("words.txt", "r")
 for w in f:
     w = w.strip()
     if w.isalpha() and w.islower():
@@ -11,12 +13,24 @@ for w in f:
         for pre in range(1, len(w)):
             prefixes.add(w[0:pre])
 
-n = int(input())
-board0 = []
-for _ in range(n):
-    row = input()
-    board0.append([c for c in row.lower()])
+def getRow():
+    return list(input().strip().lower())
+
+board0 = [getRow()]
+n = len(board0[0])
+for _ in range(1, n):
+    board0.append(getRow())
 counts0 = [int(c) for c in input().split()]
+
+if len(board0) != n:
+    print("Row 1 length %d does not match number of rows %d",
+          file=sys.stderr)
+    exit(1)
+for i in range(1, n):
+    if len(board0[i]) != n:
+        print("Row 1 length %d does not match number of rows %d",
+              file=sys.stderr)
+        exit(1)
 
 solutions = set()
 def search(board, counts, partial):
