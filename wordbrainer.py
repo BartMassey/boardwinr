@@ -18,10 +18,8 @@ for _ in range(n):
     board0.append([c for c in row.lower()])
 counts0 = [int(c) for c in input().split()]
 
+solutions = set()
 def search(board, counts, partial):
-    def showBoard(boardish):
-        for r in boardish:
-            print("".join(r))
 
     def dropTiles(boardish):
         for c in range(n):
@@ -64,10 +62,12 @@ def search(board, counts, partial):
         board[r][c] = saved
 
     if counts == []:
-        print(" ".join(partial))
+        solutions.add(" ".join(partial))
         return
     for r in range(n):
         for c in range(n):
             answer = trace(r, c, "")
 
 search(board0, counts0, [])
+for s in solutions:
+    print(s)
