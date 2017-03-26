@@ -1,4 +1,4 @@
-# BroadWinr
+# BoardWinr
 Copyright &copy; 2016 Bart Massey
 
 This is a simple solver for the Mag Interactive game
@@ -25,10 +25,10 @@ format of one word per line. Dictionaries are available in
 compressed format on GitHub in the
 [wordlists](http://github.com/BartMassey/wordlists) project.
 
-Feeding the example above to BroadWinr with the EOWL
+Feeding the example above to BoardWinr with the EOWL
 dictionary
 
-        python3 broadwinr.py <example.txt
+        python3 boardwinr.py <example.txt
 
 results in the output 
 
